@@ -15,7 +15,7 @@ import java.util.Map;
 @Builder
 @Data
 @Log4j2
-public class Forecast {
+public class VSTForecast {
     static Document document;
 
     @Builder.Default

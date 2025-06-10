@@ -32,7 +32,7 @@ export default function Home() {
             </section>
 
             {/* 시간대별 예보 */}
-            <section className="forecast-section">
+            <section className="VSTForecast-section">
                 <ShortTermForecast />
             </section>
         </Container>
