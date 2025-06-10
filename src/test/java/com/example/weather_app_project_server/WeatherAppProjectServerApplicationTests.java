@@ -16,16 +16,13 @@ class WeatherAppProjectServerApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
-//        Observation observation = Observation.builder()
-//                .nx("55")
-//                .ny("127")
-//                .pageNo("1")
-//                .numOfRows("1000")
-//                .build();
-//        observation.generateDocument();
-//        Map<String, String> obsrMap = observation.findValues();
-//        log.info("observation map:");
-//        log.info(obsrMap);
+        Observation observation = Observation.builder()
+                .nx(55)
+                .ny(127)
+                .build();
+        Map<String, String> obsrMap = observation.findValues();
+        log.info("observation map:");
+        log.info(obsrMap);
 
 //        STForecast stForecast = STForecast.builder()
 //                .nx("55")
@@ -36,10 +33,10 @@ class WeatherAppProjectServerApplicationTests {
 //        stForecast.generateDocument();
 //        stForecast.findValues();
 
-        ParticulateMatter particulateMatter = ParticulateMatter.builder()
-                .stationName(Station.findStation(55, 127))
-                .build();
-        log.info(particulateMatter.findValues());
+//        ParticulateMatter particulateMatter = ParticulateMatter.builder()
+//                .stationName(Station.findStation(55, 127))
+//                .build();
+//        log.info(particulateMatter.findValues());
     }
 
 }

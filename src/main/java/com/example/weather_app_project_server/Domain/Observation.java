@@ -26,10 +26,12 @@ public class Observation {
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default
     private String base_time = "0600";
-    private String pageNo;
-    private String numOfRows;
-    private String nx;
-    private String ny;
+    @Builder.Default
+    private int pageNo = 1;
+    @Builder.Default
+    private int numOfRows = 1000;
+    private double nx;
+    private double ny;
 
     public Map<String, String> findValues() throws Exception {
          this.document = Jsoup.connect(this.url
