@@ -15,7 +15,7 @@ import java.util.Map;
 @Builder
 @Data
 @Log4j2
-public class VSTForecast {
+public class Observation {
     static Document document;
 
     @Builder.Default

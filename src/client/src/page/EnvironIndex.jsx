@@ -1,10 +1,5 @@
 import Header from "../component/Header.jsx";
-import VillageObservation from "../component/villageobservasion/VillageObservation.jsx";
-import {Col, Container, Row} from "react-bootstrap";
-import VsrfRgbFramesList from "../component/videoFramsData/VsrfRgbFramesList.jsx";
-import RadarCompositeFrames from "../component/videoFramsData/RadarCompositeFrames.jsx";
-import SatelliteRgbFrames from "../component/videoFramsData/SatelliteRgbFrames.jsx";
-import ShortTermForecast from "../component/villageobservasion/ShortTermForecast.jsx";
+import {Container} from "react-bootstrap";
 import React from "react";
 
 export default function EnvironIndex(){
