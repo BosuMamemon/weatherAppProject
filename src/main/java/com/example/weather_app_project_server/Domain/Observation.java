@@ -30,8 +30,8 @@ public class Observation {
     private int pageNo = 1;
     @Builder.Default
     private int numOfRows = 1000;
-    private double nx;
-    private double ny;
+    private int nx;
+    private int ny;
 
     public Map<String, String> findValues() throws Exception {
          this.document = Jsoup.connect(this.url
@@ -42,6 +42,7 @@ public class Observation {
                 + "&base_time=" + this.base_time
                 + "&nx=" + this.nx
                 + "&ny=" + this.ny).get();
+        log.info(this.document);
 
         Map<String, String> map = new HashMap<>();
         Elements items = this.document.getElementsByTag("item");

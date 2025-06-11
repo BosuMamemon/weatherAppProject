@@ -29,10 +29,12 @@ public class STForecast {
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default
     private String base_time = "0500";
-    private String numOfRows;
-    private String pageNo;
-    private String nx;
-    private String ny;
+    @Builder.Default
+    private int numOfRows = 1000;
+    @Builder.Default
+    private int pageNo = 1;
+    private int nx;
+    private int ny;
 
     public List<Map<String, String>> findValues() throws Exception {
         this.document = Jsoup.connect(
@@ -66,7 +68,6 @@ public class STForecast {
                         map.put(item.getElementsByTag("category").text(), item.getElementsByTag("fcstValue").text());
                     }
                 }
-                log.info(map);
                 maps.add(map);
             }
         }

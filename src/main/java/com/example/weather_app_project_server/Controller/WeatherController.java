@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,9 +15,17 @@ import java.util.Map;
 public class WeatherController {
     private final WeatherService weatherService;
 
-    @GetMapping("/observation")
+    @PostMapping("/observation")
     @ResponseBody
-    public Map<String, String> getObsevation(@RequestBody Map<String, Double> xys) throws Exception {
-        return weatherService.getObservation(xys.get("x"), xys.get("y"));
+    public Map<String, String> getObservation(@RequestBody Map<String, Double> xys) throws Exception {
+        return weatherService.getObservation((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
+    }
+
+    @PostMapping("/forecast")
+    @ResponseBody
+    public List<Map<String, String>> getForecast(@RequestBody Map<String, Double> xys) throws Exception {
+        List<Map<String, String>> lists = weatherService.getForecast((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
+        log.info(lists);
+        return lists;
     }
 }

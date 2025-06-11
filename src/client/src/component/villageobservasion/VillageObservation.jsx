@@ -4,43 +4,33 @@ import axios from "axios";
 
 export default function VillageObservation() {
     const {location, observation} = useWeatherStore(state => state.states);
-    const {setLocation, setObservation} = useWeatherStore(state => state.actions);
+    const {setObservation} = useWeatherStore(state => state.actions);
 
     useEffect(() => {
-        if(!navigator.geolocation) {
-            alert('이 브라우저는 위치 정보를 지원하지 않습니다.');
-            return;
-        }
-        navigator.geolocation.getCurrentPosition(
-            geodata => {
-                setLocation({
-                    x: geodata.coords.latitude,
-                    y: geodata.coords.longitude,
-                });
-            },
-            (err) => {
-                alert('위치 정보를 가져오는 데 실패했습니다: ' + err.message);
-            }
-        );
-        console.log(location);
+        if (!location.x || !location.y) return;
 
         const fetchObservation = async () => {
             try {
-                const data = {'x': location.x, 'y': location.y};
-                console.log(data);
-                const response = await axios.get("/api/weather/observation", JSON.parse(JSON.stringify(data)));
+                const response = await axios.post("/api/weather/observation", JSON.parse(JSON.stringify(location)));
                 setObservation(response.data);
             } catch(e) {
-                console.error(e);
+                console.error('기상 단기현황 데이터 페치 실패:', e);
             }
         }
 
         fetchObservation();
-    }, [location, setLocation, setObservation]);
+    }, [location, setObservation]); // location 변경 시에만 실행
 
     return(
         <div className={'card'}>
-            {observation.toString()}
+            기온: {observation.T1H ? observation.T1H : null}도 <br/>
+            1시간 강수량: {observation.RN1 ? observation.RN1 : null}mm <br/>
+            동서바람성분: {observation.UUU ? observation.UUU : null}m/s <br/>
+            남북바람성분: {observation.VVV ? observation.VVV : null}m/s <br/>
+            습도: {observation.REH ? observation.REH : null}% <br/>
+            강수형태: {observation.PTY ? observation.PTY : null} <br/>
+            풍향: {observation.VEC ? observation.VEC : null}deg <br/>
+            풍속: {observation.WSD ? observation.WSD : null}m/s <br/>
         </div>
     )
 }

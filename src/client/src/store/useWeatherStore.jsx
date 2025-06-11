@@ -4,11 +4,13 @@ const useWeatherStore = create(set => (
     {
         states: {
             location: {},
-            observation: {}
+            observation: {},
+            forecast: []
         },
         actions: {
-            setLocation: geodata => set({location: geodata}),
-            setObservation: obsvData => set({observation: obsvData})
+            setLocation: data => set(state => ({states: {...state.states, location: data}})),
+            setObservation: data => set(state => ({states: {...state.states, observation: data}})),
+            setForecast: data => set(state => ({states: {...state.states, forecast: data}}))
         }
     }
 ))
