@@ -42,7 +42,6 @@ public class Observation {
                 + "&base_time=" + this.base_time
                 + "&nx=" + this.nx
                 + "&ny=" + this.ny).get();
-        log.info(this.document);
 
         Map<String, String> map = new HashMap<>();
         Elements items = this.document.getElementsByTag("item");

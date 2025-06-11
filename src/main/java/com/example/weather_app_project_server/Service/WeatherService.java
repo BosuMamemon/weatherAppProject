@@ -2,9 +2,11 @@ package com.example.weather_app_project_server.Service;
 
 import com.example.weather_app_project_server.Domain.Observation;
 import com.example.weather_app_project_server.Domain.STForecast;
+import com.example.weather_app_project_server.Domain.VSTForecast;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -25,5 +27,16 @@ public class WeatherService {
                 .ny(y)
                 .build();
         return stForecast.findValues();
+    }
+
+    public List<Map<String, String>> getVSTForecast(int x, int y) throws Exception {
+        String nowTime = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().getHour()) + "00" : "0" + String.valueOf(LocalTime.now().getHour()) + "00";
+        VSTForecast vstForecast = VSTForecast.builder()
+                .nx(x)
+                .ny(y)
+                .base_time(nowTime)
+                .build();
+        log.info(vstForecast.findValues());
+        return vstForecast.findValues();
     }
 }

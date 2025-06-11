@@ -24,8 +24,12 @@ public class WeatherController {
     @PostMapping("/forecast")
     @ResponseBody
     public List<Map<String, String>> getForecast(@RequestBody Map<String, Double> xys) throws Exception {
-        List<Map<String, String>> lists = weatherService.getForecast((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
-        log.info(lists);
-        return lists;
+        return weatherService.getForecast((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
+    }
+
+    @PostMapping("/vstforecast")
+    @ResponseBody
+    public List<Map<String, String>> getVSTForecast(@RequestBody Map<String, Double> xys) throws Exception {
+        return weatherService.getVSTForecast((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
     }
 }
