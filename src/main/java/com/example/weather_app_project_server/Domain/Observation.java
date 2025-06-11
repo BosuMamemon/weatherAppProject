@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class Observation {
     @Builder.Default
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default
-    private String base_time = "0600";
+    private String base_time = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().getHour()) + "00" : "0" + String.valueOf(LocalTime.now().getHour()) + "00";
     @Builder.Default
     private int pageNo = 1;
     @Builder.Default
@@ -42,6 +43,8 @@ public class Observation {
                 + "&base_time=" + this.base_time
                 + "&nx=" + this.nx
                 + "&ny=" + this.ny).get();
+
+         log.info(document);
 
         Map<String, String> map = new HashMap<>();
         Elements items = this.document.getElementsByTag("item");

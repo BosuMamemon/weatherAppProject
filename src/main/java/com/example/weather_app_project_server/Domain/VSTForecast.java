@@ -27,7 +27,8 @@ public class VSTForecast {
     private String serviceKey = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg==";
     @Builder.Default
     private String base_date = LocalDate.now().toString().replace("-", "");
-    private String base_time;
+    @Builder.Default
+    private String base_time = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().getHour()) + "00" : "0" + String.valueOf(LocalTime.now().getHour()) + "00";
     @Builder.Default
     private int numOfRows = 1000;
     @Builder.Default

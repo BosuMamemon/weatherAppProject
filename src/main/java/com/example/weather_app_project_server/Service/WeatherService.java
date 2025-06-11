@@ -30,11 +30,9 @@ public class WeatherService {
     }
 
     public List<Map<String, String>> getVSTForecast(int x, int y) throws Exception {
-        String nowTime = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().getHour()) + "00" : "0" + String.valueOf(LocalTime.now().getHour()) + "00";
         VSTForecast vstForecast = VSTForecast.builder()
                 .nx(x)
                 .ny(y)
-                .base_time(nowTime)
                 .build();
         log.info(vstForecast.findValues());
         return vstForecast.findValues();
