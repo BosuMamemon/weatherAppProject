@@ -23,7 +23,7 @@ export default function ShortTermForecast() {
             try {
                 const response = await axios.post('/api/weather/vstforecast', JSON.parse(JSON.stringify(location)));
                 setVSTForecast(response.data);
-            } catch(e) {
+            } catch (e) {
                 console.error('기상 초단기예보 데이터 페치 실패:', e);
             }
         }

@@ -14,7 +14,7 @@ export default function VillageObservation() {
             try {
                 const response = await axios.post("/api/weather/observation", JSON.parse(JSON.stringify(location)));
                 setObservation(response.data);
-            } catch(e) {
+            } catch (e) {
                 console.error('기상 단기현황 데이터 페치 실패:', e);
             }
         }
@@ -22,7 +22,7 @@ export default function VillageObservation() {
         fetchObservation();
     }, [location, setObservation]); // location 변경 시에만 실행
 
-    return(
+    return (
 <div className="card shadow-lg border-0">
     <div className="card-header bg-gradient" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
         <h5 className="card-title mb-0">

@@ -32,4 +32,10 @@ public class WeatherController {
     public List<Map<String, String>> getVSTForecast(@RequestBody Map<String, Double> xys) throws Exception {
         return weatherService.getVSTForecast((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
     }
+
+    @PostMapping("/pm")
+    @ResponseBody
+    public Map<String, String> getPM(@RequestBody Map<String, Double> xys) throws Exception {
+        return weatherService.getPM(xys.get("x"), xys.get("y"));
+    }
 }

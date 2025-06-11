@@ -43,7 +43,14 @@ public class Observation {
                 + "&base_time=" + this.base_time
                 + "&nx=" + this.nx
                 + "&ny=" + this.ny).get();
-
+         log.info(this.url
+                 + "?ServiceKey=" + this.serviceKey
+                 + "&pageNo=" + this.pageNo
+                 + "&numOfRows=" + this.numOfRows
+                 + "&base_date=" + this.base_date
+                 + "&base_time=" + this.base_time
+                 + "&nx=" + this.nx
+                 + "&ny=" + this.ny);
          log.info(document);
 
         Map<String, String> map = new HashMap<>();

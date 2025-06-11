@@ -35,8 +35,6 @@ public class ParticulateMatter {
         ).get();
 
         Element item = document.getElementsByTag("item").get(0);
-        log.info("item:");
-        log.info(item);
         map.put("so2Value", item.getElementsByTag("so2Value").text());
         map.put("coValue", item.getElementsByTag("coValue").text());
         map.put("pm10Value", item.getElementsByTag("pm10Value").text());

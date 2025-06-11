@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 
 @Log4j2
 public class Station {
-    public static String findStation(int x, int y) throws Exception {
+    public static String findStation(double x, double y) throws Exception {
         Document document = Jsoup.connect(
                 "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?ServiceKey=xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg==" +
                         "&tmX=" + x +

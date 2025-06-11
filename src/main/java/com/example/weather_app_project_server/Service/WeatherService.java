@@ -1,12 +1,9 @@
 package com.example.weather_app_project_server.Service;
 
-import com.example.weather_app_project_server.Domain.Observation;
-import com.example.weather_app_project_server.Domain.STForecast;
-import com.example.weather_app_project_server.Domain.VSTForecast;
+import com.example.weather_app_project_server.Domain.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +33,13 @@ public class WeatherService {
                 .build();
         log.info(vstForecast.findValues());
         return vstForecast.findValues();
+    }
+
+    public Map<String, String> getPM(double x, double y) throws Exception {
+        ParticulateMatter particulateMatter = ParticulateMatter.builder()
+                .stationName(Station.findStation(x, y))
+                .build();
+        log.info(particulateMatter.findValues());
+        return particulateMatter.findValues();
     }
 }

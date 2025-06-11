@@ -1,6 +1,7 @@
 import Header from "../component/Header.jsx";
 import {Container} from "react-bootstrap";
 import React from "react";
+import ParticulateMatter from "../component/ParticulateMatter.jsx";
 
 export default function EnvironIndex(){
     return(
@@ -11,9 +12,7 @@ export default function EnvironIndex(){
             </header>
 
             <section className="village-observation mb-4">
-                <div>
-                    나가면 디짐. 미세먼지, 황사, 오존, 이산화탄소, 아황산가스 다 들이 마실만한 날씨임.
-                </div>
+                <ParticulateMatter/>
             </section>
         </Container>
 
