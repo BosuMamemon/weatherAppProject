@@ -24,20 +24,18 @@ public class VideoImagedownloaderController {
     //veryShortTermForcast Frames 전달
     @GetMapping("/downloadVSTFFrames")
     public ResponseEntity<?> triggerVSTFDownload() {
+        log.info("🔔 [/video/downloadVSTFFrames] 호출됨");
         try {
-            List<String> radarFramesURLList = downloaderService.downloadRadarFrames();
-            log.info("radar Frames downloaded");
-            return ResponseEntity.ok(radarFramesURLList);
+            List<String> vSTFFramesURLList = downloaderService.downloadVSTFFrames();
+            log.info("초단기예상 프레임 다운로드 성공 : " + vSTFFramesURLList);
+            return ResponseEntity.ok(vSTFFramesURLList);
         } catch (Exception e) {
-            log.error("레이더 프레임 다운로드 실패", e);
+            log.error("초단기예상 프레임 다운로드 실패", e);
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("실패: " + e.getMessage());
         }
     }
-
-
-
 
     // Radar Frames 전달
     @GetMapping("/downloadRadarFrames")

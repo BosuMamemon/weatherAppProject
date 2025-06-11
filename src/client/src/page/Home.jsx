@@ -23,7 +23,7 @@ export default function Home() {
             {/* 실황 지도 및 영상 */}
             <section className="live-weather-map-section mb-4">
                 <Row className="g-3">
-                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={''}
+                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadVSTFFrames'}
                                                             videoTitle={'초단기예보'} /></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadRadarFrames'}
                                                             videoTitle={'레이더영상'}/></Col>
