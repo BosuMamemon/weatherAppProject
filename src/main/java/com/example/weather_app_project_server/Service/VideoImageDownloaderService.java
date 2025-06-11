@@ -1,7 +1,10 @@
 package com.example.weather_app_project_server.Service;
 
+import com.example.weather_app_project_server.Domain.RadarFrames;
+import com.example.weather_app_project_server.Domain.SatelliteFrames;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
@@ -11,12 +14,42 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
+@Log4j2
 @Service
 public class VideoImageDownloaderService {
     private static final String API_KEY = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg%3D%3D";
 
-    public void downloadRadarImages() throws Exception {
+    public List<String> downloadVSTFFrams() throws Exception {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String url = "https://apihub.kma.go.kr/api/typ03/cgi/dfs/nph-qpf_ana_img" +
+                "?eva=1" +
+                "&tm=202212221350" +
+                "&qpf=B" +
+                "&ef=360" +
+                "&map=HR" +
+                "&grid=2" +
+                "&legend=1" +
+                "&size=600" +
+                "&zoom_level=0" +
+                "&zoom_x=0000000" +
+                "&zoom_y=0000000" +
+                "&stn=108" +
+                "&x1=470" +
+                "&y1=575" +
+                "&authKey=zL1ONJ5JRrS9TjSeSSa0iQ";
+
+
+
+
+    }
+
+
+
+
+    public List<String> downloadRadarFrames() throws Exception {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String url = "http://apis.data.go.kr/1360000/RadarImgInfoService/getCmpImg" +
                 "?serviceKey=" + API_KEY +
@@ -35,26 +68,21 @@ public class VideoImageDownloaderService {
         rawList = rawList.replace("[", "").replace("]", "").replace(" ", "");
         String[] imageUrls = rawList.split(",");
 
-        Path saveDir = Path.of("radar_images", date);
-        Files.createDirectories(saveDir);
+        RadarFrames radarFramesDTO = new RadarFrames();
+        List<String> radarFrames = new ArrayList<>();
 
-        int idx = 0;
         for (String imageUrl : imageUrls) {
-            try (BufferedInputStream in = new BufferedInputStream(new URL(imageUrl).openStream());
-                 FileOutputStream fileOutputStream = new FileOutputStream(saveDir.resolve("radar_" + date + '_' + idx + ".png").toFile())) {
-                byte[] dataBuffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                    fileOutputStream.write(dataBuffer, 0, bytesRead);
-                }
+                radarFrames.add(imageUrl);
                 System.out.println("✅ Radar Image 저장됨: " + imageUrl);
-                idx++;
-            } catch (Exception e) {
-                System.err.println("❌ Radar Image 실패: " + imageUrl + " - " + e.getMessage());
-            }
         }
+
+        radarFramesDTO.setRadarFrames(radarFrames);
+        System.out.println("<UNK> Radar Frames <UNK>: " + radarFramesDTO.getRadarFrames());
+
+        return radarFramesDTO.getRadarFrames();
+
     }
-    public void downloadSatliteImages() throws Exception {
+    public List<String> downloadSatliteFrames() throws Exception {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String url = "http://apis.data.go.kr/1360000/SatlitImgInfoService/getInsightSatlit" +
                 "?serviceKey=" + API_KEY +
@@ -71,30 +99,24 @@ public class VideoImageDownloaderService {
 
         String rawList = root.path("response").path("body").path("items").path("item").get(0).path("satImgC-file").asText();
 
+        log.info("<UNK> Satellite Image <UNK>: " + rawList);
+
         // 문자열을 진짜 리스트로 파싱
         rawList = rawList.replace("[", "").replace("]", "").replace(" ", "");
         String[] imageUrls = rawList.split(",");
+        log.info("<UNK> Satellite Image <UNK>: " + imageUrls.length);
 
-        Path saveDir = Path.of("Satlite_images", date);
-        Files.createDirectories(saveDir);
+        SatelliteFrames satelliteFramesDTO = new SatelliteFrames();
+        List<String> satelliteFrames = new ArrayList<>();
 
-        int idx = 0;
         for (String imageUrl : imageUrls) {
-            try (BufferedInputStream in = new BufferedInputStream(new URL(imageUrl).openStream());
-                 FileOutputStream fileOutputStream = new FileOutputStream(saveDir.resolve("Satlite_" + date + '_' + idx + ".png").toFile())) {
-                byte[] dataBuffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                    fileOutputStream.write(dataBuffer, 0, bytesRead);
-                }
-                System.out.println("✅ 저장됨: " + imageUrl);
-                idx++;
-            } catch (Exception e) {
-                System.err.println("❌ 실패: " + imageUrl + " - " + e.getMessage());
-            }
+                satelliteFrames.add(imageUrl);
+                System.out.println("✅ Satellite Image 저장됨: " + imageUrl);
         }
+        satelliteFramesDTO.setSatliteFrames(satelliteFrames);
+        log.info("satelliteFramesDTO.getSatelliteFrames()");
+        return satelliteFramesDTO.getSatliteFrames();
+
     }
-
-
 
 }

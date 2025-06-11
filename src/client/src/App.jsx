@@ -5,6 +5,7 @@ import Information from "./page/Information.jsx";
 import WeatherMap from "./page/WeatherMap.jsx";
 import EnvironIndex from "./page/EnvironIndex.jsx";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import {useEffect} from "react";
 import useWeatherStore from "./store/useWeatherStore.jsx";
 

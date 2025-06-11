@@ -1,13 +1,11 @@
 import React from 'react';
 import Header from '../component/Header';
 import VillageObservation from '../component/villageobservasion/VillageObservation';
-import RadarCompositeFrames from '../component/videoFramsData/RadarCompositeFrames';
-import SatelliteRgbFrames from '../component/videoFramsData/SatelliteRgbFrames';
-import VsrfRgbFramesList from '../component/videoFramsData/VsrfRgbFramesList';
 import ShortTermForecast from '../component/villageobservasion/ShortTermForecast';
 
 import { Container, Row, Col } from 'react-bootstrap';
-import './Home.css'; // 추가 스타일링이 있다면 여기에 작성
+import './Home.css';
+import VideoFrames from "../component/videoFramsData/VideoFrames.jsx"; // 추가 스타일링이 있다면 여기에 작성
 
 export default function Home() {
     return (
@@ -25,9 +23,12 @@ export default function Home() {
             {/* 실황 지도 및 영상 */}
             <section className="live-weather-map-section mb-4">
                 <Row className="g-3">
-                    <Col md={4}><VsrfRgbFramesList /></Col>
-                    <Col md={4}><RadarCompositeFrames /></Col>
-                    <Col md={4}><SatelliteRgbFrames /></Col>
+                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={''}
+                                                            videoTitle={'초단기예보'} /></Col>
+                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadRadarFrames'}
+                                                            videoTitle={'레이더영상'}/></Col>
+                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadSatelliteFrames'}
+                                                            videoTitle={'위성영상'} /></Col>
                 </Row>
             </section>
 
