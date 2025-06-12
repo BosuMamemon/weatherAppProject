@@ -1,6 +1,7 @@
 import {Container} from "react-bootstrap";
 import Header from "../component/Header.jsx";
 import React from "react";
+import AddressLookup from "../component/AddressSelector.jsx";
 
 export default function Information(){
     return(
@@ -11,9 +12,7 @@ export default function Information(){
             </header>
 
             <section className="village-observation mb-4">
-                <div>
-                    여기서는 오늘 날씨 해설도 해주고, 특보발령기준 알려주고 그런거 다 한다 마!
-                </div>
+                <AddressLookup />
             </section>
         </Container>
 

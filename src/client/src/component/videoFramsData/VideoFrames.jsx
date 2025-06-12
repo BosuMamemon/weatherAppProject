@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Button from "../Button.jsx";
 
-export default function VideoFrames({videoUrl, videoTitle}) {
+export default function VideoFrames({videoUrl, videoTitle, startTime, FrameTerm}) {
     const [imageUrls, setImageUrls] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -31,10 +31,10 @@ export default function VideoFrames({videoUrl, videoTitle}) {
         setCurrentIndex(Number(e.target.value));
     };
 
-    // 시간 텍스트 가정: 9:00 + 2분 간격으로 생성
+    // 시간 텍스트
     const getTimeText = (idx) => {
-        const base = 9 * 60; // 09:00 in minutes
-        const time = base + idx * 2;
+        const base = startTime;
+        const time = base + idx * FrameTerm;
         const h = String(Math.floor(time / 60)).padStart(2, '0');
         const m = String(time % 60).padStart(2, '0');
         return `${h}:${m}`;

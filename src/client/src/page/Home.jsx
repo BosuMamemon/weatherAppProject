@@ -12,6 +12,12 @@ import VeryShortTermForecast from "../component/villageobservasion/VeryShortTerm
 export default function Home() {
     const {willBeRaining} = useWeatherStore(state => state.states);
 
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - 10); // 10분 전으로 이동
+    now.setMinutes(Math.floor(now.getMinutes() / 10) * 10); // 분 단위 버림 (ex. 37 -> 30)
+
+    const startTime = now.getHours() * 60 + now.getMinutes();
+
     if(willBeRaining) return (
         <Container fluid className="home-page py-4 px-3">
             {/* 헤더 */}
@@ -47,6 +53,7 @@ export default function Home() {
             </section>
         </Container>
     )
+
     else return (
         <Container fluid className="home-page py-4 px-3">
             {/* 헤더 */}
@@ -63,11 +70,11 @@ export default function Home() {
             <section className="live-weather-map-section mb-4">
                 <Row className="g-3">
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadVSTFFrames'}
-                                                            videoTitle={'초단기예보'} /></Col>
+                                                            videoTitle={'초단기예보'} startTime={startTime} FrameTerm={10} /></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadRadarFrames'}
-                                                            videoTitle={'레이더영상'}/></Col>
+                                                            videoTitle={'레이더영상'} startTime={0} FrameTerm={5}/></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadSatelliteFrames'}
-                                                            videoTitle={'위성영상'} /></Col>
+                                                            videoTitle={'위성영상'} startTime={9*60} FrameTerm={2}/></Col>
                 </Row>
             </section>
 

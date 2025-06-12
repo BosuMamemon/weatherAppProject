@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import './Navigation.css';
+import AddressLookup from "./AddressSelector.jsx";
 
 export default function Navigation() {
     return (
@@ -16,6 +17,7 @@ export default function Navigation() {
             <NavLink to="/info" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 <i className="bi bi-info-circle"></i> 소식&지식
             </NavLink>
+
         </div>
     );
 }
