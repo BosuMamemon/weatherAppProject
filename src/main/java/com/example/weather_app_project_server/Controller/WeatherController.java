@@ -18,7 +18,7 @@ public class WeatherController {
     @PostMapping("/observation")
     @ResponseBody
     public Map<String, String> getObservation(@RequestBody Map<String, Double> xys) throws Exception {
-        return weatherService.getObservation((int)Math.round(xys.get("x")), (int)Math.round(xys.get("y")));
+        return weatherService.getObservation(xys.get("x"), xys.get("y"));
     }
 
     @PostMapping("/forecast")

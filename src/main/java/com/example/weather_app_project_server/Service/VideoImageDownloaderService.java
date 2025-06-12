@@ -6,6 +6,7 @@ import com.example.weather_app_project_server.Domain.VSTFFrames;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,7 +26,8 @@ import java.util.List;
 @Log4j2
 @Service
 public class VideoImageDownloaderService {
-    private static final String API_KEY = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg%3D%3D";
+    @Value("${serviceKey}")
+    private static String API_KEY;
     private static final String authKey = "zL1ONJ5JRrS9TjSeSSa0iQ";
 
     public List<String> downloadVSTFFrames() throws Exception {

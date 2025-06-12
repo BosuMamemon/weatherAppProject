@@ -1,19 +1,28 @@
 package com.example.weather_app_project_server.Service;
 
 import com.example.weather_app_project_server.Domain.*;
+import com.example.weather_app_project_server.repository.XysRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
+@Transactional
 public class WeatherService {
-    public Map<String, String> getObservation(int x, int y) throws Exception {
+    private final XysRepository xysRepository;
+
+    public Map<String, String> getObservation(double x, double y) throws Exception {
+        Xys xys = xysRepository.findClosestOneByLatitudeLongitude(x, y).get();
+
         Observation observation = Observation.builder()
-                .nx(x)
-                .ny(y)
+                .nx(xys.getNx())
+                .ny(xys.getNy())
                 .build();
         return observation.findValues();
     }
@@ -27,9 +36,11 @@ public class WeatherService {
     }
 
     public List<Map<String, String>> getVSTForecast(int x, int y) throws Exception {
+        Xys xys = xysRepository.findClosestOneByLatitudeLongitude(x, y).get();
+
         VSTForecast vstForecast = VSTForecast.builder()
-                .nx(x)
-                .ny(y)
+                .nx(xys.getNx())
+                .ny(xys.getNy())
                 .build();
         log.info(vstForecast.findValues());
         return vstForecast.findValues();

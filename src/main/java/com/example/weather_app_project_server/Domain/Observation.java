@@ -1,5 +1,6 @@
 package com.example.weather_app_project_server.Domain;
 
+import com.example.weather_app_project_server.util.ServiceKey;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -7,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,7 +24,7 @@ public class Observation {
     @Builder.Default
     private String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst";
     @Builder.Default
-    private String serviceKey = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg==";
+    private String serviceKey = ServiceKey.serviceKey;
     @Builder.Default
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default
@@ -35,23 +37,23 @@ public class Observation {
     private int ny;
 
     public Map<String, String> findValues() throws Exception {
-         this.document = Jsoup.connect(this.url
+        this.document = Jsoup.connect(this.url
+            + "?ServiceKey=" + this.serviceKey
+            + "&pageNo=" + this.pageNo
+            + "&numOfRows=" + this.numOfRows
+            + "&base_date=" + this.base_date
+            + "&base_time=" + this.base_time
+            + "&nx=" + this.nx
+            + "&ny=" + this.ny).get();
+
+        log.info(this.url
                 + "?ServiceKey=" + this.serviceKey
                 + "&pageNo=" + this.pageNo
                 + "&numOfRows=" + this.numOfRows
                 + "&base_date=" + this.base_date
                 + "&base_time=" + this.base_time
                 + "&nx=" + this.nx
-                + "&ny=" + this.ny).get();
-         log.info(this.url
-                 + "?ServiceKey=" + this.serviceKey
-                 + "&pageNo=" + this.pageNo
-                 + "&numOfRows=" + this.numOfRows
-                 + "&base_date=" + this.base_date
-                 + "&base_time=" + this.base_time
-                 + "&nx=" + this.nx
-                 + "&ny=" + this.ny);
-         log.info(document);
+                + "&ny=" + this.ny);
 
         Map<String, String> map = new HashMap<>();
         Elements items = this.document.getElementsByTag("item");

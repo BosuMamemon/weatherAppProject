@@ -1,11 +1,13 @@
 package com.example.weather_app_project_server.Domain;
 
+import com.example.weather_app_project_server.util.ServiceKey;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +22,7 @@ public class ParticulateMatter {
     @Builder.Default
     private String url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty";
     @Builder.Default
-    private String serviceKey = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg==";
+    private String serviceKey = ServiceKey.serviceKey;
     @Builder.Default
     private String dataTerm = "DAILY";
     private String stationName;

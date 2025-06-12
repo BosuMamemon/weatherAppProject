@@ -1,5 +1,6 @@
 package com.example.weather_app_project_server.Domain;
 
+import com.example.weather_app_project_server.util.ServiceKey;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -7,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,7 +26,7 @@ public class STForecast {
     @Builder.Default
     private String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
     @Builder.Default
-    private String serviceKey = "xAMz6gggHdVtkbU0OHvjZoJFFNaZPM6kvynoNtOY1b4HJXe1bUN5TpUNNvKf5zm7c2N6sJVreVxLVXnPQlTXeg==";
+    private String serviceKey = ServiceKey.serviceKey;
     @Builder.Default
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default

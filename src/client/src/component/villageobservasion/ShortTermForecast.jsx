@@ -1,47 +1,8 @@
-import {useEffect} from "react";
 import useWeatherStore from "../../store/useWeatherStore.jsx";
-import axios from "axios";
 import {getWindDirectionArrow} from "../../../util.jsx";
 
 export default function ShortTermForecast() {
-    const {location, forecast} = useWeatherStore(state => state.states);
-    const {setForecast, setVSTForecast} = useWeatherStore(state => state.actions);
-
-    useEffect(() => {
-        if (!location.x || !location.y) return;
-
-        const fetchForecast = async () => {
-            try {
-                const response = await axios.post('/api/weather/forecast', JSON.parse(JSON.stringify(location)));
-                setForecast(response.data);
-            } catch(e) {
-                console.error('기상 단기예보 데이터 페치 실패:', e);
-            }
-        }
-
-        const fetchVSTForecast = async () => {
-            try {
-                const response = await axios.post('/api/weather/vstforecast', JSON.parse(JSON.stringify(location)));
-                setVSTForecast(response.data);
-            } catch (e) {
-                console.error('기상 초단기예보 데이터 페치 실패:', e);
-            }
-        }
-
-        fetchForecast();
-
-        let formattedToday = String(new Date().getFullYear());
-        formattedToday += new Date().getMonth() + 1 < 10 ? "0" + String(new Date().getMonth() + 1) : String(new Date().getMonth());
-        formattedToday += new Date().getDate() < 10 ? "0" + String(new Date().getDate()) : String(new Date().getDate());
-        let formattedTime = new Date().getHours() < 10 ? "0" + String(new Date().getHours()) + "00" : String(new Date().getHours()) + "00";
-        let formattedForecast = forecast.filter(it => it.fcstDate === formattedToday & it.PCP !== "강수없음")
-
-        if(formattedForecast.length > 0) {
-            if(formattedForecast[0].fcstTime === formattedTime) {
-                fetchVSTForecast();
-            }
-        }
-    }, [location, setForecast, setVSTForecast]);
+    const {forecast} = useWeatherStore(state => state.states);
 
     return (
         <div className="container-fluid py-4" style={{background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', minHeight: '100vh'}}>
