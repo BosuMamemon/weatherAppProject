@@ -11,8 +11,8 @@ import useWeatherStore from "./store/useWeatherStore.jsx";
 import axios from "axios";
 
 function App() {
-    const {location, forecast, nowDate, nowTime, willBeRaining, vstForecast} = useWeatherStore();
-    const {setLocation, setForecast, setVSTForecast, setObservation, setNowDate, setNowTime, setWillBeRaining} = useWeatherStore();
+    const {location, forecast, nowDate, nowTime} = useWeatherStore();
+    const {setLocation, setForecast, setVSTForecast, setObservation, setNowDate, setNowTime} = useWeatherStore();
 
     useEffect(() => {
         if(!navigator.geolocation) {
@@ -74,16 +74,12 @@ function App() {
     useEffect(() => {
         if (!forecast.length || !nowDate || !nowTime) return;
 
-        let formattedForecast = forecast.filter(it => it.fcstDate === nowDate && new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours() && it.PCP === "강수없음");
+        let formattedForecast = forecast.filter(it => it.fcstDate === nowDate && new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours() && it.PCP !== "강수없음");
         console.log("nowDate:", nowDate);
         console.log("formattedForecast:", formattedForecast);
 
-        // 로컬 변수로 현재 상태 추적
-        let shouldBeRaining = formattedForecast.length > 0;
-        setWillBeRaining(shouldBeRaining);
-
         // 로컬 변수를 사용해서 조건 확인
-        if (shouldBeRaining) {
+        if (formattedForecast.length > 0) {
             console.log("formattedForecast[0]: ", formattedForecast[0]);
             console.log("nowTime: ", nowTime);
             console.log("formattedForecast[0].fcstTime === nowTime: ", formattedForecast[0].fcstTime === nowTime);
@@ -101,11 +97,7 @@ function App() {
                 fetchVSTForecast();
             }
         }
-    }, [forecast, location.x, location.y, nowDate, nowTime, setVSTForecast, setWillBeRaining])
-
-    useEffect(() => {
-        console.log("vstForecast: ", vstForecast);
-    }, [vstForecast]);
+    }, [forecast, location.x, location.y, nowDate, nowTime, setVSTForecast])
 
     return (
         <div className={'container mt-5'}>

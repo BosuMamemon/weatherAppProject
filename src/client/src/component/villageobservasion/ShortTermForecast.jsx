@@ -24,7 +24,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-list-ul me-2"></i>
                                 항목
                             </th>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <th key={index} className="time-header">
                                     <div className="time-badge">
                                         <div className="date-part">

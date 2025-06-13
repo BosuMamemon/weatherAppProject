@@ -27,15 +27,17 @@ public class WeatherService {
         return observation.findValues();
     }
 
-    public List<Map<String, String>> getForecast(int x, int y) throws Exception {
+    public List<Map<String, String>> getForecast(double x, double y) throws Exception {
+        Xys xys = xysRepository.findClosestOneByLatitudeLongitude(x, y).get();
+
         STForecast stForecast = STForecast.builder()
-                .nx(x)
-                .ny(y)
+                .nx(xys.getNx())
+                .ny(xys.getNy())
                 .build();
         return stForecast.findValues();
     }
 
-    public List<Map<String, String>> getVSTForecast(int x, int y) throws Exception {
+    public List<Map<String, String>> getVSTForecast(double x, double y) throws Exception {
         Xys xys = xysRepository.findClosestOneByLatitudeLongitude(x, y).get();
 
         VSTForecast vstForecast = VSTForecast.builder()

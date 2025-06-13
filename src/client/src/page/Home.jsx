@@ -10,7 +10,7 @@ import useWeatherStore from "../store/useWeatherStore.jsx";
 import VeryShortTermForecast from "../component/villageobservasion/VeryShortTermForecast.jsx"; // 추가 스타일링이 있다면 여기에 작성
 
 export default function Home() {
-    const {willBeRaining} = useWeatherStore();
+    const {vstForecast} = useWeatherStore();
 
     const now = new Date();
     now.setMinutes(now.getMinutes() - 10); // 10분 전으로 이동
@@ -18,7 +18,7 @@ export default function Home() {
 
     const startTime = now.getHours() * 60 + now.getMinutes();
 
-    if(willBeRaining) return (
+    if(vstForecast.length > 0) return (
         <Container fluid className="home-page py-4 px-3">
             {/* 헤더 */}
             <header className="mb-4">
