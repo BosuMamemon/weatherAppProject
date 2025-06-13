@@ -4,8 +4,7 @@ import axios from "axios";
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 export default function ParticulateMatter(){
-    const {location, particulateMatter} = useWeatherStore(state => state.states);
-    const {setPM} = useWeatherStore(state => state.actions);
+    const {location, particulateMatter, setPM} = useWeatherStore();
 
     useEffect(() => {
         if(!location.x || !location.y) return;

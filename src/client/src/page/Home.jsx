@@ -10,7 +10,7 @@ import useWeatherStore from "../store/useWeatherStore.jsx";
 import VeryShortTermForecast from "../component/villageobservasion/VeryShortTermForecast.jsx"; // 추가 스타일링이 있다면 여기에 작성
 
 export default function Home() {
-    const {willBeRaining} = useWeatherStore(state => state.states);
+    const {willBeRaining} = useWeatherStore();
 
     const now = new Date();
     now.setMinutes(now.getMinutes() - 10); // 10분 전으로 이동
@@ -38,7 +38,7 @@ export default function Home() {
             {/* 실황 지도 및 영상 */}
             <section className="live-weather-map-section mb-4">
                 <Row className="g-3">
-                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={''}
+                    <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadVSTFFrames'}
                                                             videoTitle={'초단기예보'} /></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadRadarFrames'}
                                                             videoTitle={'레이더영상'}/></Col>

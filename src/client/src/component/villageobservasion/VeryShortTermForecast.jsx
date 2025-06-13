@@ -1,12 +1,13 @@
 import useWeatherStore from "../../store/useWeatherStore.jsx";
 import { Card, Table } from 'react-bootstrap';
 import './VeryShortTermForecast.css';
-import {formatTime, getPrecipitationType, getSkyCondition} from "../../../util.jsx";
+import {formatTime, getPrecipitationType, getSkyCondition} from "../../util.jsx";
 
 const VeryShortTermForecast = () => {
-    const {vstForecast} = useWeatherStore(state => state.states);
+    const {vstForecast} = useWeatherStore();
+    console.log(vstForecast.find(it => it.RN1 === "강수없음"));
 
-    if(formatTime(vstForecast.find(it => it.RN1 === "강수없음").fcstTime)) return (
+    if(vstForecast.find(it => it.RN1 === "강수없음").fcstTime !== null) return (
         <Card className="very-short-forecast-card mb-4">
             <Card.Header className="forecast-header">
                 <h5 className="mb-0">

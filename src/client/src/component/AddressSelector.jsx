@@ -5,7 +5,7 @@ export default function AddressSelector() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch("/api/coords", {
+            const res = await fetch("/api/map/coords", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ address: "서울특별시 강남구 논현동" }),

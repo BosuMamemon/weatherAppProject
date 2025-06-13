@@ -2,10 +2,10 @@
 import useWeatherStore from "../../store/useWeatherStore.jsx";
 import { Card, Table } from 'react-bootstrap';
 import './ShortTermForecast.css';
-import {getWindDirectionArrow} from "../../../util.jsx";
+import {getWindDirectionArrow} from "../../util.jsx";
 
 export default function ShortTermForecast() {
-    const {forecast} = useWeatherStore(state => state.states);
+    const {forecast} = useWeatherStore();
 
     return (
         <Card className="short-term-forecast-card mb-4">

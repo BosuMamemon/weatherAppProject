@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useWeatherStore from "../store/useWeatherStore.jsx";
 
 export default function KoreaWeatherMap() {
-    const { location, observation, forecast } = useWeatherStore(state => state.states);
+    const {location, forecast, nowTime} = useWeatherStore();
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function KoreaWeatherMap() {
         const loadKakaoMapScript = async () => {
             try {
                 console.log("🔄 Kakao 지도 API 키 요청 중...");
-                const res = await fetch("/api/config/kakao-js-key");
+                const res = await fetch("/api/map/config/kakao-js-key");
                 const { key } = await res.json();
                 console.log("✅ 받아온 Kakao JS Key:", key);
 
@@ -39,7 +39,7 @@ export default function KoreaWeatherMap() {
         };
 
         loadKakaoMapScript();
-    }, []);
+    }, [location.x, location.y]);
 
     useEffect(() => {
         if (!scriptLoaded) {
@@ -65,26 +65,27 @@ export default function KoreaWeatherMap() {
         });
         marker.setMap(map);
 
-        console.log("실황 관측값 : " + observation)
-        const temp = observation.T1H ? `${observation.T1H}°` : '--°'
-        const desc = observation?.weather ?? "정보 없음";
-        const shortForecast = forecast?.[0];
-        const fcstTime = shortForecast?.fcstTime || "";
-        const fcstText = shortForecast ? `${shortForecast.category}: ${shortForecast.fcstValue}` : "";
+        const shortForecast = forecast.find(it => it.fcstTime = nowTime);
+        const temp = shortForecast.TMP ? `${shortForecast.TMP}` : '--°'
+        let desc = shortForecast.SKY ? shortForecast.SKY : "정보 없음";
+        switch(desc) {
+            case "1": desc = "맑음"; break;
+            case "3": desc = "구름 많음"; break;
+            case "4": desc = "흐림"; break;
+        }
+
 
         const content = `
             <div style="padding:8px;font-size:14px;">
                 📍 관측 실황<br/>
                 - 날씨: ${desc}<br/>
                 - 기온: ${temp}℃<br/>
-                📅 예보 (${fcstTime})<br/>
-                - ${fcstText}
             </div>
         `;
 
         const infowindow = new window.kakao.maps.InfoWindow({ content });
         infowindow.open(map, marker);
-    }, [scriptLoaded, location.lat, location.lon, observation, forecast]);
+    }, [scriptLoaded, location.x, location.y, forecast, nowTime]);
 
     return <div id="map" style={{ width: "100%", height: "400px" }} />;
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/map")
 public class CoordinateController {
 
     private final KakaoMapService kakaoMapService;

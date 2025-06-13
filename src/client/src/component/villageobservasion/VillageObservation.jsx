@@ -1,8 +1,8 @@
 import useWeatherStore from "../../store/useWeatherStore.jsx";
-import {getWindDirectionArrow} from "../../../util.jsx";
+import {getWindDirectionArrow} from "../../util.jsx";
 
 export default function VillageObservation() {
-    const {observation} = useWeatherStore(state => state.states);
+    const {observation} = useWeatherStore();
 
     return (
         <div className="card shadow-lg border-0">
