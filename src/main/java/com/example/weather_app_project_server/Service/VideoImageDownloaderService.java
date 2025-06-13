@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 public class VideoImageDownloaderService {
     @Value("${serviceKey}")
-    private static String API_KEY;
+    private String API_KEY;
     private static final String authKey = "zL1ONJ5JRrS9TjSeSSa0iQ";
 
     public List<String> downloadVSTFFrames() throws Exception {
@@ -106,6 +106,15 @@ public class VideoImageDownloaderService {
                 "&data=CMP_WRC" +
                 "&time=" + date +
                 "&dataType=JSON";
+
+        log.info("API_KEY: " + API_KEY);
+        log.info("http://apis.data.go.kr/1360000/RadarImgInfoService/getCmpImg" +
+                "?serviceKey=" + API_KEY +
+                "&numOfRows=10" +
+                "&pageNo=1" +
+                "&data=CMP_WRC" +
+                "&time=" + date +
+                "&dataType=JSON");
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(new URL(url));

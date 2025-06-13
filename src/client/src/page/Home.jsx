@@ -39,11 +39,11 @@ export default function Home() {
             <section className="live-weather-map-section mb-4">
                 <Row className="g-3">
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadVSTFFrames'}
-                                                            videoTitle={'초단기예보'} /></Col>
+                                                            videoTitle={'초단기예보'} startTime={startTime} FrameTerm={10} /></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadRadarFrames'}
-                                                            videoTitle={'레이더영상'}/></Col>
+                                                            videoTitle={'레이더영상'} startTime={0} FrameTerm={5}/></Col>
                     <Col xs={12} sm={6} md={4}><VideoFrames videoUrl={'/api/video/downloadSatelliteFrames'}
-                                                            videoTitle={'위성영상'} /></Col>
+                                                            videoTitle={'위성영상'} startTime={9*60} FrameTerm={2}/></Col>
                 </Row>
             </section>
 
