@@ -8,7 +8,6 @@ const useWeatherStore = create(set => ({
     particulateMatter: {},
     nowDate: "",
     nowTime: "",
-    willBeRaining: false,
     formattedForecast: [],
     
     // actions
@@ -19,7 +18,6 @@ const useWeatherStore = create(set => ({
     setPM: data => set({ particulateMatter: data }),
     setNowDate: data => set({ nowDate: data }),
     setNowTime: data => set({ nowTime: data }),
-    setWillBeRaining: data => set({ willBeRaining: data }),
     setFormattedForecast: data => set({ formattedForecast: data }),
 }));
 

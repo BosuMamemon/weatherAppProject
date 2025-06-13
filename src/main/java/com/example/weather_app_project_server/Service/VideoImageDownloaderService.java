@@ -142,6 +142,16 @@ public class VideoImageDownloaderService {
                 "&time=" + date +
                 "&dataType=JSON";
 
+        log.info("http://apis.data.go.kr/1360000/SatlitImgInfoService/getInsightSatlit" +
+                "?serviceKey=" + API_KEY +
+                "&numOfRows=10" +
+                "&pageNo=1" +
+                "&sat=G2" +
+                "&data=rgbt" +
+                "&area=ko" +
+                "&time=" + date +
+                "&dataType=JSON");
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(new URL(url));
 
