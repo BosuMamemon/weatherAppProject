@@ -17,7 +17,7 @@ const VeryShortTermForecast = () => {
             </Card.Header>
             <Card.Body className="forecast-body">
                 {
-                    vstForecast.find(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() > new Date().getHours() && it.RN1 === "강수없음").fcstTime ?
+                    vstForecast.find(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours() && it.RN1 === "강수없음").fcstTime ?
                         <div className="rain-stop-alert">
                             <div className="rain-stop-icon">
                                 <i className="bi bi-sun"></i>
@@ -26,7 +26,7 @@ const VeryShortTermForecast = () => {
                                 <h6 className="rain-stop-title">비가 그칠 예정입니다!</h6>
                                 <p className="rain-stop-time">
                                     <i className="bi bi-clock me-1"></i>
-                                    <strong>{formatTime(vstForecast.find(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() > new Date().getHours() && it.RN1 === "강수없음").fcstTime)}</strong>
+                                    <strong>{formatTime(vstForecast.find(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours() && it.RN1 === "강수없음").fcstTime)}</strong>
                                 </p>
                             </div>
                         </div>

@@ -45,7 +45,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-thermometer-half me-2"></i>
                                 기온 (°C)
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell temp-cell">
                                     <span className="temp-value">{item.TMP}</span>
                                     <span className="temp-unit">°</span>
@@ -59,7 +59,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-droplet me-2"></i>
                                 습도 (%)
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell humidity-cell">
                                     <span className="humidity-value">{item.REH}</span>
                                     <span className="humidity-unit">%</span>
@@ -73,7 +73,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-cloud-sun me-2"></i>
                                 하늘상태
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell sky-cell">
                                     <div className="sky-icon">
                                         {item.SKY === "1" ? "☀️" :
@@ -90,7 +90,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-cloud-rain me-2"></i>
                                 강수량
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell rainfall-cell">
                                         <span className={`rainfall-value ${item.PCP !== '강수없음' && item.PCP !== '0' ? 'has-rain' : ''}`}>
                                             {
@@ -111,7 +111,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-compass me-2"></i>
                                 풍향
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell wind-direction-cell">
                                     <div className="wind-direction-arrow">
                                         {getWindDirectionArrow(item.VEC)}
@@ -126,7 +126,7 @@ export default function ShortTermForecast() {
                                 <i className="bi bi-wind me-2"></i>
                                 풍속 (m/s)
                             </td>
-                            {forecast.map((item, index) => (
+                            {forecast.filter(it => new Date(2025, 1, 1, parseInt(it.fcstTime.substring(0, 2))).getHours() >= new Date().getHours()).map((item, index) => (
                                 <td key={index} className="data-cell wind-cell">
                                     <span className="wind-value">{item.WSD}</span>
                                     <span className="wind-unit">m/s</span>

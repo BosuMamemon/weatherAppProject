@@ -28,7 +28,7 @@ public class Observation {
     @Builder.Default
     private String base_date = LocalDate.now().toString().replace("-", "");
     @Builder.Default
-    private String base_time = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().getHour()) + "00" : "0" + String.valueOf(LocalTime.now().getHour()) + "00";
+    private String base_time = LocalTime.now().getHour() > 10 ? String.valueOf(LocalTime.now().plusHours(-1).getHour()) + "00" : "0" + String.valueOf(LocalTime.now().plusHours(-1).getHour()) + "00";
     @Builder.Default
     private int pageNo = 1;
     @Builder.Default
